@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.probelogr_tailer</groupId>
+    <groupId>com.github.uchephilz</groupId>
     <artifactId>probelogr_tailer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -10,6 +10,29 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <name>Probelogr Tailer</name>
+    <description>Probelogr's Tailer is the code used to read real-time entry to files, and feeds this record to Probelogr's server</description>
+    <url>https://github.com/UchePhilz/probelogr_tailer</url>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    
+    
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
     
     <dependencies>
         <dependency>
@@ -26,6 +49,22 @@
         </dependency>
     </dependencies>
     
+
+    <developers>
+        <developer>
+            <name>Uchephilz</name>
+            <email>uchephilz@gmail.com</email>
+            <organization>Probelogr</organization>
+            <organizationUrl>https://www.probelogr.com</organizationUrl>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:git://github.com/UchePhilz/probelogr_tailer.git</connection>
+        <developerConnection>scm:git:ssh://github.com/UchePhilz/probelogr_tailer.git</developerConnection>
+        <url>http://github.com/UchePhilz/probelogr_tailer</url>
+    </scm>
+    
     <build>
         <plugins>
             <plugin>
@@ -39,4 +78,7 @@
         </plugins>
     </build>
 
+
+
+    
 </project>
