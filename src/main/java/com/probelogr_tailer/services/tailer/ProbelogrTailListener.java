@@ -17,67 +17,46 @@ import org.apache.commons.io.input.TailerListenerAdapter;
  *
  * @author uchephilz
  */
-public class MyTailerListener extends TailerListenerAdapter {
+public class ProbelogrTailListener extends TailerListenerAdapter {
 
     private String tag;
     private Map<String, String> contextMap = new HashMap();
     private List<String> contextList = new ArrayList();
 
-    /**
-     *
-     */
-    protected MyTailerListener() {
+ 
+    protected ProbelogrTailListener() {
     }
 
-    /**
-     *
-     * @return
-     */
-    protected static MyTailerListener startBuilding() {
-        return new MyTailerListener();
+
+    protected static ProbelogrTailListener startBuilding() {
+        return new ProbelogrTailListener();
     }
 
-    /**
-     *
-     * @param tag
-     * @return
-     */
-    protected MyTailerListener setTag(String tag) {
+
+    protected ProbelogrTailListener setTag(String tag) {
         this.tag = tag;
         return this;
     }
 
-    /**
-     *
-     * @param context
-     * @return
-     */
-    protected MyTailerListener setContextMap(Map<String, String> contextMap) {
+    protected ProbelogrTailListener setContextMap(Map<String, String> contextMap) {
         this.contextMap = contextMap;
         return this;
     }
 
-    protected MyTailerListener setContextList(List<String> contextList) {
+ 
+    protected ProbelogrTailListener setContextList(List<String> contextList) {
         this.contextList = contextList;
         return this;
     }
 
-    /**
-     *
-     * @param context
-     * @return
-     */
-    protected MyTailerListener addContextMap(String tag, String context) {
+ 
+    protected ProbelogrTailListener addContextMap(String tag, String context) {
         this.contextMap.put(tag, context);
         return this;
     }
 
-    /**
-     *
-     * @param context
-     * @return
-     */
-    protected MyTailerListener addContextList(String context) {
+  
+    protected ProbelogrTailListener addContextList(String context) {
         this.contextList.add(context);
         return this;
     }
@@ -88,8 +67,8 @@ public class MyTailerListener extends TailerListenerAdapter {
         if (!contextMap.isEmpty()) {
             for (String context : contextMap.keySet()) {
                 if (line.contains(context)) {
-                    String tag = this.contextMap.get(context);
-                    ProbelogrCore.pushLog(tag, line);
+                    String getTag = this.contextMap.get(context);
+                    ProbelogrCore.pushLog(getTag, line);
                 }
             }
         }
