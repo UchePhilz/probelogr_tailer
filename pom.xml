@@ -12,7 +12,7 @@
     </properties>
     
     <name>Probelogr Tailer</name>
-    <description>Probelogr's Tailer is the code used to read real-time entry to files, and feeds this record to Probelogr's server</description>
+    <description>Probelogr's Tailer is the code used to read real-time entry to files, and feeds this record to Probelogr's server https:\\www.probelogr.com</description>
     <url>https://github.com/UchePhilz/probelogr_tailer</url>
     
     <distributionManagement>
