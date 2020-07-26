@@ -28,7 +28,7 @@ public class ProbelogrTailer {
     private Map<String, String> contextMap = new HashMap();
     private List<String> contextList = new ArrayList();
 
-    ProbelogrTailer setProbelogrConfig(String probelogrApi, String accessToken) {
+    public ProbelogrTailer setProbelogrConfig(String probelogrApi, String accessToken) {
         ProbelogrCore.updateConfig(probelogrApi, accessToken);
         return this;
     }
@@ -50,27 +50,27 @@ public class ProbelogrTailer {
         return this;
     }
 
-    protected ProbelogrTailer setTag(String tag) {
+    public ProbelogrTailer setTag(String tag) {
         this.tag = tag;
         return this;
     }
 
-    protected ProbelogrTailer setContextMap(Map<String, String> contextMap) {
+    public ProbelogrTailer setContextMap(Map<String, String> contextMap) {
         this.contextMap = contextMap;
         return this;
     }
 
-    protected ProbelogrTailer setContextList(List<String> contextList) {
+    public ProbelogrTailer setContextList(List<String> contextList) {
         this.contextList = contextList;
         return this;
     }
 
-    protected ProbelogrTailer addContextMap(String tag, String context) {
+    public ProbelogrTailer addContextMap(String tag, String context) {
         this.contextMap.put(tag, context);
         return this;
     }
 
-    protected ProbelogrTailer addContextList(String context) {
+    public ProbelogrTailer addContextList(String context) {
         this.contextList.add(context);
         return this;
     }
