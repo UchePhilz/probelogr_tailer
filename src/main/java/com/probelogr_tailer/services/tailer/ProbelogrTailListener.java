@@ -87,7 +87,7 @@ public class ProbelogrTailListener extends TailerListenerAdapter {
             }
         }
 
-        System.out.println(line);
+        //System.out.println(line);
     }
 
 }

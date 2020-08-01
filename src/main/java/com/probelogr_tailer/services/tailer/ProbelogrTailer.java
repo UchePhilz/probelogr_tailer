@@ -75,7 +75,7 @@ public class ProbelogrTailer {
     }
 
     public void run() throws InterruptedException {
-        ProbelogrTailListener listener = ProbelogrTailListener.startBuilding().setTag(this.tag).setContextMap(this.contextMap);
+        ProbelogrTailListener listener = ProbelogrTailListener.startBuilding().setTag(this.tag).setContextMap(this.contextMap).setContextList(contextList);
 
         Tailer tailer = new Tailer(new File(this.filePath), listener, ProbelogrTailer.TAIL_DELAY_MILLIS);
         Thread thread = new Thread(tailer);
