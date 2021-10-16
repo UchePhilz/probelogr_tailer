@@ -7,6 +7,7 @@ package com.probelogr_tailer.services;
 
 //this line of code below can be removed if you do not have GSON library
 import com.google.gson.Gson;
+import com.probelogr_tailer.utils.AbstractObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,23 +25,25 @@ import java.util.logging.Logger;
  */
 public class ProbelogrCore {
 
-    public static final String ERROR = "ERROR";
-    public static final String ACTIVITY = "ACTIVITY";
 
     //You can place your configuration here
-    private static String ACCESS_TOKEN = "";
+    public static String ACCESS_TOKEN = "";
 
     //url
     private static String URL = "";
 
+    public ProbelogrCore() {
+    }
+
+    
     /**
      *
      * This function updates your Probelogr configuration with the URL and
      * accessToken for your application that has created on www.probelogr.com
      *
      * @param url this is the URL to Probelogr API
-     * <br>(https://api.probelogr.com/logit/cass-log |
-     * https://api.probelogr.com/logit/push-log)
+     * <br>(https://api.probelogr.com/logit/persist-log |
+     * https://api.probelogr.com/logit/loose-log)
      * @param accessToken this access token needs to be generated when your
      * register at www.probelogr.com
      */
@@ -61,14 +64,13 @@ public class ProbelogrCore {
      * @param body this is a value that needs to be logged
      * @return
      */
-    private static String makeBody(String tag, String body) {
-        String POST_PARAMS = "{"
-                + "    \"tags\": \"" + tag + "\",\r\n"
-                + "    \"body\": \"" + body + "\"\r\n"
-                + "}";
-        return POST_PARAMS;
-    }
-
+//    private static String makeBody(String tag, String body) {
+//        String POST_PARAMS = "{"
+//                + "    \"tags\": \"" + tag + "\",\r\n"
+//                + "    \"body\": \"" + body + "\"\r\n"
+//                + "}";
+//        return POST_PARAMS;
+//    }
     /**
      * The makeBody function constructs a string to be used as the request
      * <br> body with to parameters.
@@ -83,10 +85,10 @@ public class ProbelogrCore {
      * @return json string of body and tag
      */
     private static String makeBody(String tag, Object body) {
-        HashMap<String, Object> b = new HashMap();
-        b.put("body", new Gson().toJson(body));
-        b.put("tags", tag);
-        return new Gson().toJson(b);
+        AbstractObject ao = new AbstractObject();
+        ao.addField("body", new Gson().toJson(body));
+        ao.addField("tags", tag);
+        return ao.returnJsonObject();
     }
 
     /**
@@ -115,15 +117,6 @@ public class ProbelogrCore {
         pushEngine(logBody);
     }
 
-    public static void pushActivityLog(Object body) {
-        String logBody = makeBody(ACTIVITY, body);
-        pushEngine(logBody);
-    }
-
-    public static void pushErrorLog(Object body) {
-        String logBody = makeBody(ERROR, body);
-        pushEngine(logBody);
-    }
 
     /**
      *
@@ -143,12 +136,12 @@ public class ProbelogrCore {
             os.flush();
             os.close();
             int responseCode = postConnection.getResponseCode();
-            System.out.println("Probelogr Access Token :  " + ProbelogrCore.ACCESS_TOKEN);
-            System.out.println("Probelogr Access URL :  " + ProbelogrCore.URL);
-            System.out.println("Probelogr Body :  " + body);
 
-            System.out.println("POST Response Code :  " + responseCode);
-            System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+//            System.out.println("Probelogr Access Token :  " + ProbelogrCore.ACCESS_TOKEN);
+//            System.out.println("Probelogr Access URL :  " + ProbelogrCore.URL);
+//            System.out.println("Probelogr Body :  " + body);
+//            System.out.println("POST Response Code :  " + responseCode);
+//            System.out.println("POST Response Message : " + postConnection.getResponseMessage());
             if (responseCode == HttpURLConnection.HTTP_OK) { //success
                 BufferedReader in = new BufferedReader(new InputStreamReader(
                         postConnection.getInputStream()));
@@ -159,9 +152,8 @@ public class ProbelogrCore {
                 }
                 in.close();
                 // print result
-                System.out.println(response.toString());
+                //System.out.println(response.toString());
             } else {
-                System.out.println("POST NOT WORKED");
             }
 
         } catch (MalformedURLException ex) {
@@ -169,7 +161,6 @@ public class ProbelogrCore {
         } catch (IOException ex) {
             Logger.getLogger(ProbelogrCore.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Log pushed");
     }
 
 }
