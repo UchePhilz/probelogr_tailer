@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.uchephilz</groupId>
     <artifactId>probelogr_tailer</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -82,7 +82,8 @@
         <connection>scm:git:git://github.com/UchePhilz/probelogr_tailer.git</connection>
         <developerConnection>scm:git:ssh://github.com/UchePhilz/probelogr_tailer.git</developerConnection>
         <url>http://github.com/UchePhilz/probelogr_tailer</url>
-    </scm>
+      <tag>probelogr_tailer-1.1.0</tag>
+  </scm>
     
     <build>
         <plugins>
