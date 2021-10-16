@@ -7,7 +7,7 @@ package com.probelogr_tailer.services.tailer;
 
 import com.probelogr_tailer.services.ProbelogrCore;
 import com.probelogr_tailer.services.tailer.ProbelogrTailListener;
-import com.probelogr_tailer.websocket.StompSessionHandler;
+import com.probelogr_tailer.websocket.ProbeStreamHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ProbelogrTailer {
     /**
      * This sets the access token of the app you have created
      *
-     * @param accessToken
+     * @param accessToken the token of your Probelogr app
      * @return returns the updated
      * {@link com.probelogr_tailer.services.tailer.ProbelogrTailer}
      * ProbelogrTailer
@@ -206,11 +206,11 @@ public class ProbelogrTailer {
     /**
      * The run method should be called when all required field has been set
      *
-     * @throws InterruptedException
+     * @throws InterruptedException error throw if interrupted
      */
     public void run() throws InterruptedException {
 
-        StompSessionHandler handler = new StompSessionHandler(this.accessToken);
+        ProbeStreamHandler handler = new ProbeStreamHandler(this.accessToken);
 
         ProbelogrTailListener listener = ProbelogrTailListener.startBuilding()
                 .setTag(this.tag).setContextMap(this.contextMap)

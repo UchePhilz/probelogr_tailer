@@ -32,14 +32,21 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
@@ -50,33 +57,45 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 /**
  *
+ * Probeloger Stream Handlers connects to the Probelogr Server through <br>
+ * Web Socket, to allow optimized flow data.
+ *
  * @author uchephilz
  */
-public class StompSessionHandler extends StompSessionHandlerAdapter {
+@Configuration
+@EnableScheduling
+public class ProbeStreamHandler extends StompSessionHandlerAdapter {
 
     private StompSession session = null;
     private String accessToken;
     private final String URL = "https://api.probelogr.com/ws";
-    WebSocketStompClient stompClient = null;
+    private WebSocketStompClient stompClient = null;
 
-    public StompSessionHandler(String accessToken) {
+    /**
+     *
+     * @param accessToken token generated from
+     */
+    public ProbeStreamHandler(String accessToken) {
         this.accessToken = accessToken;
         try {
             stompClient = setupStomp();
             session = stompClient.connect(URL, this).get();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(StompSessionHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
-            Logger.getLogger(StompSessionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException | ExecutionException ex) {
+            System.out.println(ex.getMessage());
         }
 
     }
 
     private void reconnect() {
         try {
-            session = stompClient.connect(URL, this).get();
+            System.out.println("reconnection trial");
+            if (!session.isConnected()) {
+                session = stompClient.connect(URL, this).get();
+            } else {
+                this.disconnect();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -93,11 +112,7 @@ public class StompSessionHandler extends StompSessionHandlerAdapter {
     }
 
     public void sendLooseStreamMessage(String tag, String body) {
-        if (Meths.notNull(session)) {
-            if (session.isConnected()) {
-                send("/app/looseStream", tag, body);
-            }
-        }
+        send("/app/looseStream", tag, body);
     }
 
     public void sendPersistStreamMessage(String tag, String body) {
@@ -112,39 +127,23 @@ public class StompSessionHandler extends StompSessionHandlerAdapter {
         }
     }
 
-//    private void subscribeTopic(String topic, StompSession session) {
-//        session.subscribe(topic, new StompFrameHandler() {
-//
-//            @Override
-//            public Type getPayloadType(StompHeaders headers) {
-//                return Logs.class;
-//            }
-//
-//            @Override
-//            public void handleFrame(StompHeaders headers,
-//                    Object payload) {
-//                System.err.println(payload.toString());
-//            }
-//        });
-//    }
-
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         System.err.println("Connected!");
-        //subscribeTopic("/topic/group_" + accessToken, session);
 
     }
 
     @Override
     public void handleTransportError(StompSession session, Throwable exception) {
-        System.out.println("Error on websocket session " + session.getSessionId());
-        System.out.println("reconnecting ...");
+        System.out.println("Error on probe stream session " + session.getSessionId());
         reconnect();
+
     }
 
-    public void disConnection(){
-        if(session.isConnected())
-        this.session.disconnect();
+    public void disconnect() {
+        if (Meths.notNull(session) && session.isConnected()) {
+            this.session.disconnect();
+        }
     }
-    
+
 }

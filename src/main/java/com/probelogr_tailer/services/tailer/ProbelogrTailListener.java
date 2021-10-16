@@ -7,7 +7,7 @@ package com.probelogr_tailer.services.tailer;
 
 import com.probelogr_tailer.services.ProbelogrCore;
 import com.probelogr_tailer.utils.Meths;
-import com.probelogr_tailer.websocket.StompSessionHandler;
+import com.probelogr_tailer.websocket.ProbeStreamHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ public class ProbelogrTailListener extends TailerListenerAdapter {
     private long delay;
     private boolean end;
     private boolean shouldPersist = false;
-    StompSessionHandler handler;
+    ProbeStreamHandler handler;
 
     protected static ProbelogrTailListener startBuilding() {
         return new ProbelogrTailListener();
@@ -84,7 +84,7 @@ public class ProbelogrTailListener extends TailerListenerAdapter {
         return this;
     }
 
-    public ProbelogrTailListener setStompHandler(StompSessionHandler handler) {
+    public ProbelogrTailListener setStompHandler(ProbeStreamHandler handler) {
         this.handler = handler;
         return this;
     }
