@@ -79,10 +79,10 @@
     </developers>
     
     <scm>
-        <connection>scm:git:git://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@github.com/UchePhilz/probelogr_tailer.git</connection>
-        <developerConnection>scm:git:ssh://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@github.com/UchePhilz/probelogr_tailer.git</developerConnection>
+        <connection>scm:git:git://github.com/UchePhilz/probelogr_tailer.git</connection>
+        <developerConnection>scm:git:ssh://github.com/UchePhilz/probelogr_tailer.git</developerConnection>
         <url>http://github.com/UchePhilz/probelogr_tailer</url>
-      <tag>probelogr_tailer-1.1.6</tag>
+      <tag>probelogr_tailer-1.1.5</tag>
   </scm>
     
     <build>
