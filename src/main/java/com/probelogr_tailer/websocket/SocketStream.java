@@ -14,18 +14,18 @@ import java.io.FileNotFoundException;
  */
 public class SocketStream {
 
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-        String tag = "LOG-STREAM";
-        String accessToken = "6157ef3ff06bd7-470151806157ef3ff06c33-33433533";
-
-        ProbelogrTailer.startBuilding()
-                .setFile("/wamp64-3.2.3/www/probelogr_frontend/runtime/logs/app.log")
-                .setAccessToken(accessToken)
-                .setTag(tag)
-                .setShouldPersist(true)
-                .shouldLog(false)
-                .run();
-        
-    }
+//    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+//        String tag = "LOG-STREAM";
+//        String accessToken = "6157ef3ff06bd7-470151806157ef3ff06c33-33433533";
+//
+//        ProbelogrTailer.startBuilding()
+//                .setFile("/wamp64-3.2.3/www/probelogr_frontend/runtime/logs/app.log")
+//                .setAccessToken(accessToken)
+//                .setTag(tag)
+//                .setShouldPersist(true)
+//                .shouldLog(false)
+//                .run();
+//        
+//    }
 
 }
