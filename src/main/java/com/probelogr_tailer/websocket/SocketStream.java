@@ -6,6 +6,7 @@
 package com.probelogr_tailer.websocket;
 
 import com.probelogr_tailer.services.tailer.ProbelogrTailer;
+import com.probelogr_tailer.utils.KingKonfig;
 import java.io.FileNotFoundException;
 
 /**
@@ -14,15 +15,17 @@ import java.io.FileNotFoundException;
  */
 public class SocketStream {
 
+    private final static KingKonfig config = KingKonfig.getInstance();
+    
 //    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-//        String tag = "LOG-STREAM";
-//        String accessToken = "6157ef3ff06bd7-470151806157ef3ff06c33-33433533";
+//        String tag = config.getValue("OPEN-STREAM");
+//        String accessToken = config.getValue("wfm-backend-log-access-token");
 //
 //        ProbelogrTailer.startBuilding()
-//                .setFile("/wamp64-3.2.3/www/probelogr_frontend/runtime/logs/app.log")
+//                .setFile(config.getValue("wfm-backend-log-path"))
 //                .setAccessToken(accessToken)
 //                .setTag(tag)
-//                .setShouldPersist(true)
+//                .setShouldPersist(false)
 //                .shouldLog(false)
 //                .run();
 //        

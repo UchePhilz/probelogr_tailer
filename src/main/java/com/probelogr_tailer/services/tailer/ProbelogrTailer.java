@@ -5,7 +5,6 @@
  */
 package com.probelogr_tailer.services.tailer;
 
-import com.probelogr_tailer.services.ProbelogrCore;
 import com.probelogr_tailer.services.tailer.ProbelogrTailListener;
 import com.probelogr_tailer.websocket.ProbeStreamHandler;
 import java.io.File;
